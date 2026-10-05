@@ -1,0 +1,289 @@
+{
+  "project": "TraceImpact 2.0 Power BI Executive Intelligence Dashboard",
+  "version": "2.0.0",
+  "database_backend": "PostgreSQL 14+ (dbname: traceimpact)",
+  "theme": {
+    "name": "TraceImpact Mission Control Void",
+    "dataColors": [
+      "#06D6A0",
+      "#118AB2",
+      "#FFD166",
+      "#EF476F",
+      "#073B4C",
+      "#8338EC",
+      "#3A86FF",
+      "#FB5607",
+      "#FFBE0B",
+      "#9B5DE5"
+    ],
+    "background": "#0A0F1A",
+    "foreground": "#F8FAFC",
+    "tableAccent": "#118AB2",
+    "visualStyles": {
+      "*": {
+        "*": {
+          "background": [
+            {
+              "show": true,
+              "color": {
+                "solid": {
+                  "color": "#0D1322"
+                }
+              },
+              "transparency": 15
+            }
+          ],
+          "border": [
+            {
+              "show": true,
+              "color": {
+                "solid": {
+                  "color": "#1E293B"
+                }
+              },
+              "radius": 8
+            }
+          ],
+          "title": [
+            {
+              "show": true,
+              "fontColor": {
+                "solid": {
+                  "color": "#F8FAFC"
+                }
+              },
+              "fontSize": 12,
+              "fontFamily": "Segoe UI Semibold"
+            }
+          ],
+          "labels": [
+            {
+              "color": {
+                "solid": {
+                  "color": "#94A3B8"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "card": {
+        "*": {
+          "labels": [
+            {
+              "color": {
+                "solid": {
+                  "color": "#06D6A0"
+                }
+              },
+              "fontSize": 24,
+              "fontFamily": "Segoe UI Bold"
+            }
+          ],
+          "categoryLabels": [
+            {
+              "color": {
+                "solid": {
+                  "color": "#94A3B8"
+                }
+              },
+              "fontSize": 10
+            }
+          ]
+        }
+      },
+      "page": {
+        "*": {
+          "background": [
+            {
+              "show": true,
+              "color": {
+                "solid": {
+                  "color": "#0A0F1A"
+                }
+              },
+              "transparency": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "views": [
+    "v_pbi_executive_kpis",
+    "v_program_kpis",
+    "v_pbi_before_after",
+    "v_pbi_data_quality_fact",
+    "v_pbi_public_data_explorer",
+    "v_pbi_ml_anomaly_fact",
+    "v_pbi_ai_investigation_fact",
+    "v_pbi_ingestion_monitor",
+    "v_pbi_stress_test_benchmarks",
+    "v_pbi_end_to_end_lineage",
+    "world_bank_countries",
+    "world_bank_indicators",
+    "programs",
+    "source_files"
+  ],
+  "record_counts": {
+    "Fact_ExecKPIs": 2,
+    "Fact_ProgramKPIs": 5,
+    "Fact_BeforeAfter": 2,
+    "Fact_DataQuality": 899,
+    "Fact_PublicExplorer": 5812,
+    "Fact_MLAnomalies": 810,
+    "Fact_AIInvestigations": 33,
+    "Fact_IngestionMonitor": 67,
+    "Fact_StressTest": 5,
+    "Fact_Lineage": 5839,
+    "Dim_Country": 264,
+    "Dim_Indicator": 4,
+    "Dim_Program": 5,
+    "Dim_SourceFiles": 5
+  },
+  "relationships": [
+    {
+      "from": "Dim_Country.country_code",
+      "to": "Fact_PublicExplorer.country_code",
+      "cardinality": "1:*",
+      "crossFilter": "Single"
+    },
+    {
+      "from": "Dim_Indicator.indicator_code",
+      "to": "Fact_PublicExplorer.indicator_code",
+      "cardinality": "1:*",
+      "crossFilter": "Single"
+    },
+    {
+      "from": "Dim_Country.country_code",
+      "to": "Fact_MLAnomalies.country_code",
+      "cardinality": "1:*",
+      "crossFilter": "Single"
+    },
+    {
+      "from": "Dim_Indicator.indicator_code",
+      "to": "Fact_MLAnomalies.indicator_code",
+      "cardinality": "1:*",
+      "crossFilter": "Single"
+    },
+    {
+      "from": "Dim_Program.program_name",
+      "to": "Fact_DataQuality.program_name",
+      "cardinality": "1:*",
+      "crossFilter": "Single"
+    },
+    {
+      "from": "Dim_Severity.severity",
+      "to": "Fact_DataQuality.severity",
+      "cardinality": "1:*",
+      "crossFilter": "Single"
+    },
+    {
+      "from": "Dim_Status.status",
+      "to": "Fact_DataQuality.status",
+      "cardinality": "1:*",
+      "crossFilter": "Single"
+    },
+    {
+      "from": "Dim_Program.program_id",
+      "to": "Fact_ProgramKPIs.program_id",
+      "cardinality": "1:1",
+      "crossFilter": "Single"
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 1,
+      "title": "Executive Overview",
+      "supported": true,
+      "source_views": [
+        "v_pbi_executive_kpis",
+        "v_program_kpis"
+      ]
+    },
+    {
+      "page_number": 2,
+      "title": "Before vs After / Impact",
+      "supported": true,
+      "source_views": [
+        "v_pbi_before_after"
+      ]
+    },
+    {
+      "page_number": 3,
+      "title": "Data Quality Intelligence",
+      "supported": true,
+      "source_views": [
+        "v_pbi_data_quality_fact"
+      ]
+    },
+    {
+      "page_number": 4,
+      "title": "Public Data Explorer",
+      "supported": true,
+      "source_views": [
+        "v_pbi_public_data_explorer",
+        "world_bank_countries",
+        "world_bank_indicators"
+      ]
+    },
+    {
+      "page_number": 5,
+      "title": "ML Anomaly Intelligence",
+      "supported": true,
+      "source_views": [
+        "v_pbi_ml_anomaly_fact"
+      ]
+    },
+    {
+      "page_number": 6,
+      "title": "AI Investigation",
+      "supported": true,
+      "source_views": [
+        "v_pbi_ai_investigation_fact"
+      ]
+    },
+    {
+      "page_number": 7,
+      "title": "Pipeline / Ingestion Monitor",
+      "supported": true,
+      "source_views": [
+        "v_pbi_ingestion_monitor"
+      ]
+    },
+    {
+      "page_number": 8,
+      "title": "Scale & Stress Test",
+      "supported": true,
+      "source_views": [
+        "v_pbi_stress_test_benchmarks"
+      ]
+    },
+    {
+      "page_number": 9,
+      "title": "Traceability / Data Lineage",
+      "supported": true,
+      "source_views": [
+        "v_pbi_end_to_end_lineage"
+      ]
+    }
+  ],
+  "measures_summary": {
+    "Total Programs": 5,
+    "Total Beneficiaries": 51,
+    "Total Attendance Records": 612,
+    "Total Session Hours": 1183.0,
+    "Total Program Expenses": 666950.36,
+    "Total Budget Allocated": 765000.0,
+    "Avg Outcome Score Improvement": 26.18,
+    "Avg Outcome Improvement %": 79.52,
+    "Synthetic Total Records": 784,
+    "Synthetic Clean Record Rate %": 98.72,
+    "World Bank Observations": 5588,
+    "World Bank ML Flagged Anomalies": 783,
+    "World Bank AI Investigations": 6,
+    "World Bank AI Insights": 31,
+    "Ingestion Runs": 64,
+    "100K Measured Throughput RPS": 22215.4
+  }
+}
